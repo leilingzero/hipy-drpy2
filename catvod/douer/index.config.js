@@ -129,7 +129,7 @@ var builtinDanmuAddress = `http://${getIPAddress()}:9321`;
 var index_config_default = {
   ali: {
     token: "",
-    prefix: "阿里"
+    prefix: "闃块噷"
   },
   quark: {
     cookie: ""
@@ -190,11 +190,11 @@ var index_config_default = {
   },
   danmu: {
     urls: [
-      { address: builtinDanmuAddress, name: "内置弹幕", builtin: true }
+      { address: builtinDanmuAddress, name: "鍐呯疆寮瑰箷", builtin: true }
     ],
     autoPush: true,
     debug: false
-    // 弹幕匹配调试信息开关
+    // 寮瑰箷鍖归厤璋冭瘯淇℃伅寮€鍏�
   },
   t4: {
     list: []
@@ -215,26 +215,26 @@ var index_config_default = {
   live2vod: {
     sources: [
       { name: "IPTV", url: "https://ipv.qq1000.site/IPTV.txt", img: "" },
-      { name: "范明明", url: "https://cdn.jsdelivr.net/gh/fanmingming/live@refs/heads/main/tv/m3u/ipv6.m3u", img: "" },
-      { name: "电视", url: "https://tv.iill.top/m3u/Gather", img: "" },
-      { name: "网络", url: "https://m.iill.top/Live.m3u", img: "" },
-      { name: "体育", url: "https://tv.iill.top/m3u/Sport", img: "" },
-      { name: "哔哩", url: "https://sub.ottiptv.cc/bililive.m3u", img: "" },
-      { name: "虎牙", url: "https://sub.ottiptv.cc/huyayqk.m3u", img: "" },
-      { name: "斗鱼", url: "https://sub.ottiptv.cc/douyuyqk.m3u", img: "" },
+      { name: "鑼冩槑鏄�", url: "https://cdn.jsdelivr.net/gh/fanmingming/live@refs/heads/main/tv/m3u/ipv6.m3u", img: "" },
+      { name: "鐢佃", url: "https://tv.iill.top/m3u/Gather", img: "" },
+      { name: "缃戠粶", url: "https://m.iill.top/Live.m3u", img: "" },
+      { name: "浣撹偛", url: "https://tv.iill.top/m3u/Sport", img: "" },
+      { name: "鍝斿摡", url: "https://sub.ottiptv.cc/bililive.m3u", img: "" },
+      { name: "铏庣墮", url: "https://sub.ottiptv.cc/huyayqk.m3u", img: "" },
+      { name: "鏂楅奔", url: "https://sub.ottiptv.cc/douyuyqk.m3u", img: "" },
       { name: "YY", url: "https://sub.ottiptv.cc/yylunbo.m3u", img: "" }
     ],
     showMode: "groups",
-    // groups: 按组分类显示, all: 单线路展示
+    // groups: 鎸夌粍鍒嗙被鏄剧ず, all: 鍗曠嚎璺睍绀�
     def_pic: "https://ghproxy.net/https://raw.githubusercontent.com/hjdhnx/hipy-server/master/app/static/img/lives.jpg"
   },
   alist: [
     {
-      name: "🐉神族九帝",
+      name: "馃悏绁炴棌涔濆笣",
       server: "https://alist.shenzjd.com"
     },
     {
-      name: "💢repl",
+      name: "馃挗repl",
       server: "https://ali.liucn.repl.co"
     }
   ],
