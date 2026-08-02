@@ -60,7 +60,9 @@
    "searchable": 1,
    "quickSearch": 1,
    "filterable": 1,
-   "ext": "{\"host\":\"https://dsystv.com\"}"
+   "ext": {
+    "host": "https://dsystv.com"
+   }
   },
   {
    "key": "py_ysttv",
@@ -70,9 +72,32 @@
    "searchable": 1,
    "quickSearch": 0,
    "filterable": 1,
-   "ext": "{\"host\":\"https://ysttv.com\",\"pageFmt\":\"\",\"searchFmt\":\"\"}"
+   "ext": {
+    "host": "https://ysttv.com",
+    "pageFmt": "",
+    "searchFmt": ""
+   }
   },
-  
+  {
+   "key": "py_xlys",
+   "name": "雪落影视[py]",
+   "type": 3,
+   "api": "./py/xlys.py",
+   "searchable": 1,
+   "quickSearch": 1,
+   "filterable": 1,
+   "ext": {
+    "host": "https://v.xl.in.ua",
+    "pageFmt": ""
+   }
+  },
+  {
+   "key": "py_fqdm",
+   "name": "番茄动漫[py]",
+   "type": 3,
+   "api": "./py/fqdm.py",
+   "playerType": 2
+  },
   {
    "key": "1",
    "name": "--- 1 ---"
