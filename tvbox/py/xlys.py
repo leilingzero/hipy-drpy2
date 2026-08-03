@@ -109,6 +109,7 @@ class Spider(Spider):
     def getName(self): return "雪落影视"
 
     def init(self, extend=""):
+    # 最新域名： v.xl.in.ua v.xl01.eu.cc v.xl02.eu.cc v.xl01.cc.ua
         self.host = "https://v.xl.in.ua"
         try: ext = json.loads(extend) if str(extend).strip().startswith("{") else {}
         except Exception: ext = {}
