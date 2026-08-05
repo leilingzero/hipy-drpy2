@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 """
+【遮天功法 · 道宫境】
 站点：大鸡鸡 dajiji.sbs (ccc.djj88.sbs)
+境界：道宫秘境 · 脾之神藏
+功法：WordPress 文章站轻量直取 + 图片代理大阵
 """
 
 import sys

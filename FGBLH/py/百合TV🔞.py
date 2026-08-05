@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 #!/usr/bin/python
-# 遮天法 · 极道帝兵自动生成 · 百合TV Spider
+# 百合TV Spider
 # 目标: https://qq.com.bh432.sbs/
-# 生成时间: 2026-08-04
-# 帝兵覆盖: 荒塔, 诛仙四剑, 吞天魔罐, 仙珍图, 万物母气鼎
 
 import sys, re, json, base64, html, os, threading, time, hashlib
 from urllib.parse import quote, unquote, urljoin, urlparse

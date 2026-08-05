@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
 #!/usr/bin/python
-# 遮天法 · 极道帝兵自动生成 · 万法归一 · MacCMS v10模板
 # 目标: https://xqxq1.cc/ (AV星球)
-# CMS: MacCMS v10 (maccms)
-# 特征: 无反爬 / 直接m3u8 / data-url含播放地址 / Plyr播放器
 
 import sys, re, json, base64, html, os, threading, time, hashlib
 from urllib.parse import quote, unquote, urljoin, urlparse
