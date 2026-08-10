@@ -4,6 +4,44 @@
     "logo": "./logo.php",
     "lives": [
         {
+            "name": "MIT",
+            "type": 0,
+            "playerType": 2,
+            "ua": "okhttp",
+			"url": "https://gh-proxy.org/https://raw.githubusercontent.com/fleung49/star/refs/heads/main/mit"
+        },
+		{
+            "name": "电视家",
+            "type": 0,
+            "playerType": 2,
+             "ua": "okhttp",
+			 "url": "https://gh-proxy.org/https://github.com/bang359/dsj/raw/main/dsjcs.txt"
+        },
+		{
+            "name": "薄荷直播",
+            "type": 0,
+            "ua": "okhttp/5.3.2",
+            "url": "https://gh-proxy.org/https://raw.githubusercontent.com/wujiangliu/live-sources/refs/heads/main/bhmb.m3u"
+        }, 
+		{
+            "name": "国际TV",
+            "type": 0,
+            "ua": "okhttp",
+            "url": "https://gh-proxy.org/https://raw.githubusercontent.com/xJEYDAin/iptv/main/output/all_merged.m3u"
+        },
+		{
+            "name": "live",
+            "type": 0,
+            "ua": "okhttp",
+            "url": "https://live.445569.xyz/live.m3u"
+        },
+		{
+            "name": "飞扬",
+            "type": 0,
+            "ua": "okhttp",
+            "url": "https://www.985pan.com/down.php/bf5e9607ff407fcdd71f63928ea5bc79.txt"
+        },
+        {
             "name": "直播源合集（密码1111）",
             "type": 0,
             "ua": "okhttp/5.3.2",
@@ -34,12 +72,6 @@
             "url": "http://ys.my.to/?v=zoto"
         },
         {
-            "name": "sylu",
-            "type": 0,
-            "ua": "okhttp/5.3.2",
-            "url": "http://xclasvgas.sylu.net:8080/smt.php"
-        },
-        {
             "name": "migu",
             "type": 0,
             "ua": "okhttp/5.3.2",
@@ -50,12 +82,6 @@
             "type": 0,
             "ua": "okhttp/5.3.2",
             "url": "https://d.kstore.dev/download/12441/ds9.txt"
-        },
-        {
-            "name": "裤佬",
-            "type": 0,
-            "ua": "okhttp/5.3.2",
-            "url": "https://gh-proxy.org/https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg1.m3u"
         },
         {
             "name": "易发",
@@ -76,12 +102,6 @@
             "url": "http://210.245.166.84:1299/live/live.txt"
         },
         {
-            "name": "夜空",
-            "type": 0,
-            "ua": "okhttp/5.3.2",
-            "url": "https://pan.szfx.top/down.php/4f5dad27633e1293d7ef2317ee9c801e.txt"
-        },
-        {
             "name": "Guovin",
             "type": 0,
             "ua": "okhttp/5.3.2",
@@ -93,18 +113,12 @@
             "ua": "okhttp/5.3.2",
             "url": "https://gh-proxy.org/https://raw.githubusercontent.com/develop202/migu_video/refs/heads/main/interface.txt"
         },
-        {
-            "name": "电视家",
+		{
+            "name": "地方直播1",
             "type": 0,
             "ua": "okhttp/5.3.2",
-            "url": "https://gh-proxy.org/https://raw.githubusercontent.com/wujiangliu/live-sources/refs/heads/main/电视家.m3u"
-        },
-        {
-            "name": "DSJ",
-            "type": 0,
-            "ua": "okhttp/5.3.2",
-            "url": "https://dsj-1312694395.cos.ap-guangzhou.myqcloud.com/dsj10.1.txt"
-        },
+            "url": "https://gh-proxy.org/https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/ipv4/result.m3u"
+        },    
         {
             "name": "天浪",
             "type": 0,
@@ -118,22 +132,10 @@
             "url": "https://d.kstore.dev/download/11344/yunduan.txt"
         },
         {
-            "name": "风云",
-            "type": 0,
-            "ua": "okhttp/5.3.2",
-            "url": "http://iptv.4666888.xyz/FYTV.txt"
-        },
-        {
             "name": "TNT",
             "type": 0,
             "ua": "okhttp/5.3.2",
             "url": "https://gh-proxy.org/https://raw.githubusercontent.com/TianmuTNT/iptv/main/iptv.txt"
-        },
-        {
-            "name": "林中的小屋",
-            "type": 0,
-            "ua": "okhttp/5.3.2",
-            "url": "https://gh-proxy.org/https://raw.githubusercontent.com/tushen6/Tomorrow/refs/heads/master/TV/lzxw0411.txt"
         },
         {
             "name": "王子",
@@ -172,28 +174,10 @@
             "url": "http://1.94.31.214/live/live9/dgtv.txt"
         },
         {
-            "name": "蜂巢",
-            "type": 0,
-            "ua": "okhttp/5.3.2",
-            "url": "http://ibox.x10.mx/555.txt"
-        },
-        {
-            "name": "vBMSZ",
-            "type": 0,
-            "ua": "okhttp/5.3.2",
-            "url": "https://pan.ymxx.net/f/vBMSZ/临时测试.txt"
-        },
-        {
             "name": "q1017673817",
             "type": 0,
             "ua": "okhttp/5.3.2",
             "url": "https://gh-proxy.org/https://raw.githubusercontent.com/q1017673817/iptvz/refs/heads/main/zubo_all.txt"
-        },
-        {
-            "name": "米米",
-            "type": 0,
-            "ua": "okhttp/5.3.2",
-            "url": "https://gitee.com/yimi321/ymys/raw/master/lib/tv.png"
         },
         {
             "name": "卡卡西",
@@ -236,42 +220,6 @@
             "type": 0,
             "ua": "okhttp/5.3.2",
             "url": "https://gitee.com/szwxk/watch-television/raw/master/wxk1.m3u"
-        },
-        {
-            "name": "52xiaobai",
-            "type": 0,
-            "ua": "okhttp/5.3.2",
-            "url": "https://52xiaobai.cn/ceshi/zb.php"
-        },
-        {
-            "name": "澜露",
-            "type": 0,
-            "ua": "okhttp/5.3.2",
-            "url": "https://cloud.7so.top/f/Bgw1H8/%E5%A4%A7%E6%94%B9.txt"
-        },
-        {
-            "name": "港台大陆频道",
-            "type": 0,
-            "ua": "okhttp/5.3.2",
-            "url": "https://gh-proxy.org/https://raw.githubusercontent.com/FGBLH/FG/refs/heads/main/港台大陆"
-        },
-        {
-            "name": "港台大陆频道无18",
-            "type": 0,
-            "ua": "okhttp/5.3.2",
-            "url": "https://gh-proxy.org/https://raw.githubusercontent.com/FGBLH/FG/refs/heads/main/港台大陆无18内容"
-        },
-        {
-            "name": "xxx视频资源",
-            "type": 0,
-            "ua": "okhttp/5.3.2",
-            "url": "https://gh-proxy.org/https://raw.githubusercontent.com/FGBLH/FG/refs/heads/main/xxx视频资源"
-        },
-        {
-            "name": "娱乐",
-            "type": 0,
-            "ua": "okhttp/5.3.2",
-            "url": "https://m.iill.top/Live.m3u"
         },
         {
             "name": "虎牙一起看",

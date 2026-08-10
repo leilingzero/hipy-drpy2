@@ -1,353 +1,517 @@
 # -*- coding: utf-8 -*-
-# TVBox爬虫 - 51吃瓜网 (localProxy图片代理修复版)
-
-import sys
-import re
+# 🌈 Love 
 import json
-import urllib.parse
-from base.spider import Spider
-from bs4 import BeautifulSoup
+import random
+import re
+import sys
+import time
+from base64 import b64decode, b64encode
+from functools import lru_cache
+from typing import Dict, List, Optional, Tuple, Any
+from urllib.parse import urlparse, urljoin
+
 import requests
+from Crypto.Cipher import AES
+from Crypto.Util.Padding import unpad
+from pyquery import PyQuery as pq
+
+sys.path.append('..')
+from base.spider import Spider
 
 
 class Spider(Spider):
-    def getName(self):
-        return "51吃瓜网"
-
-    def init(self, extend=""):
-        self.host = "https://adapt.qlcdttsxm.cc"
-        # 若失效，可替换为 https://51cg1.com
-        self.session = requests.Session()
-        self.session.headers.update({
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
-            "Referer": self.host,
-            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-            "Accept-Language": "zh-CN,zh;q=0.9",
+    """51吸瓜视频爬虫"""
+    
+    # 常量定义
+    DEFAULT_HEADERS = {
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
+        'Accept-Language': 'zh-CN,zh;q=0.9',
+        'Connection': 'keep-alive',
+        'Cache-Control': 'no-cache',
+    }
+    
+    DYNAMIC_HOSTS = [
+        'https://artist.vgwtswi.xyz',
+        'https://ability.vgwtswi.xyz', 
+        'https://51chiguada.com', 
+        'https://am.vgwtswi.xyz'
+    ]
+    
+    CATEGORY_SELECTORS = [
+        '.category-list ul li',
+        '.nav-menu li',
+        '.menu li',
+        'nav ul li'
+    ]
+    
+    AES_KEY = b'f5d965df75336270'
+    AES_IV = b'97b60394abc2fbe1'
+    
+    def init(self, extend: str = "") -> None:
+        """初始化爬虫"""
+        self.proxies = json.loads(extend) if extend else {}
+        self.headers = self.DEFAULT_HEADERS.copy()
+        self.host = self._get_working_host()
+        self.headers.update({
+            'Origin': self.host, 
+            'Referer': f"{self.host}/"
         })
-        self.class_map = {
-            "wpcz": "今日吃瓜", "xsxy": "学生校园", "whhl": "网红黑料",
-            "rdsj": "热门大瓜", "mrdg": "吃瓜榜单", "bkdg": "必看大瓜",
-            "cbdj": "AI成人短剧", "ysyl": "看片娱乐", "mrds": "每日大赛",
-            "lldd": "伦理道德", "gcjq": "国产剧情", "thjx": "探花精选",
-            "whhj": "网黄合集", "snsn": "骚男骚女", "whmx": "明星黑料",
-            "hwcg": "海外吃瓜", "rrcg": "人人吃瓜", "ldcg": "领导干部",
-            "jpll": "软萌甜妹", "qubk": "吃瓜看戏", "dcbq": "擦边聊骚",
-            "zzs": "51涨知识", "cgxw": "吃瓜新闻", "yczq": "原创博主",
-            "51djc": "51剧场", "sjb": "世界杯专栏",
-        }
-        self.debug = False
-
-    def _log(self, msg):
-        if self.debug:
-            print(f"[51吃瓜] {msg}")
-
-    def _fix_url(self, url):
-        if not url:
-            return ""
-        url = url.strip()
-        if url.startswith("//"):
-            return "https:" + url
-        if url.startswith("/"):
-            return self.host + url
-        if not url.startswith("http"):
-            return self.host + "/" + url
-        return url
-
-    def _fetch(self, url, timeout=15):
+        self.log(f"使用站点: {self.host}")
+    
+    def getName(self) -> str:
+        return "🌈 51吸瓜"
+    
+    def isVideoFormat(self, url: str) -> bool:
+        """检查是否为视频格式"""
+        video_exts = ['.m3u8', '.mp4', '.ts']
+        return any(ext in (url or '') for ext in video_exts)
+    
+    def manualVideoCheck(self) -> bool:
+        return False
+    
+    def destroy(self) -> None:
+        pass
+    
+    def homeContent(self, filter: Any) -> Dict:
+        """获取首页内容"""
         try:
-            self._log(f"Fetch: {url}")
-            resp = self.session.get(url, timeout=timeout)
-            resp.encoding = "utf-8"
-            return resp.text
-        except Exception as e:
-            self._log(f"Fetch error: {e}")
-            return ""
-
-    # ---------- 首页分类 ----------
-    def homeContent(self, filter=False):
-        classes = [{"type_id": cid, "type_name": name} for cid, name in self.class_map.items()]
-        return {"class": classes}
-
-    def homeVideoContent(self):
-        return self.categoryContent("wpcz", "1", False, {})
-
-    # ---------- 分类列表 ----------
-    def categoryContent(self, tid, pg, filter=False, extend=None):
-        try:
-            pg = int(pg) if pg else 1
-            tid_str = str(tid)
-            if tid_str not in self.class_map:
-                self._log(f"未知分类: {tid_str}")
-                return {"list": [], "page": pg, "pagecount": 1, "limit": 20, "total": 0}
-
-            if pg <= 1:
-                url = f"{self.host}/category/{tid_str}/"
-            else:
-                url = f"{self.host}/category/{tid_str}/page/{pg}/"
-
-            html = self._fetch(url)
-            if not html:
-                self._log("分类页获取失败，尝试首页")
-                html = self._fetch(self.host)
-                if not html:
-                    return {"list": [], "page": pg, "pagecount": 1, "limit": 20, "total": 0}
-
-            videos = self._parse_articles(html)
-
-            # 分页
-            pagecount = pg
-            soup = BeautifulSoup(html, "html.parser")
-            pagination = soup.select(".page-navigator a")
-            if pagination:
-                max_page = pg
-                for a in pagination:
-                    href = a.get("href", "")
-                    m = re.search(r"/page/(\d+)/", href)
-                    if m:
-                        num = int(m.group(1))
-                        if num > max_page:
-                            max_page = num
-                if max_page > pg:
-                    pagecount = max_page
-            elif len(videos) >= 20:
-                pagecount = pg + 1
-
+            response = self._safe_request(self.host)
+            if not response:
+                return {'class': [], 'list': []}
+            
+            data = self.getpq(response.text)
+            
             return {
-                "list": videos,
-                "page": pg,
-                "pagecount": max(pagecount, pg),
-                "limit": 20,
-                "total": max(pagecount, pg) * 20
+                'class': self._get_categories(data),
+                'list': self._get_video_list(data('#index article a'))
             }
+            
         except Exception as e:
-            self._log(f"categoryContent异常: {e}")
-            return {"list": [], "page": 1, "pagecount": 1, "limit": 20, "total": 0}
-
-    # ---------- 解析文章 ----------
-    def _parse_articles(self, html):
-        if not html:
-            return []
-        soup = BeautifulSoup(html, "html.parser")
-        videos = []
-        seen = set()
-
-        articles = soup.find_all("article")
-        if not articles:
-            links = soup.find_all("a", href=re.compile(r"/archives/\d+"))
-            if links:
-                for a in links:
-                    href = a.get("href")
-                    if href in seen:
-                        continue
-                    seen.add(href)
-                    title = a.get_text(strip=True)
-                    if not title:
-                        h = a.find_previous(["h1", "h2", "h3"])
-                        if h:
-                            title = h.get_text(strip=True)
-                    img = a.find("img")
-                    pic = ""
-                    if img:
-                        pic = img.get("data-src") or img.get("data-xkrkllgl") or img.get("src") or ""
-                    pic = self._fix_url(pic)
-                    if href and title:
-                        videos.append({
-                            "vod_id": href,
-                            "vod_name": title,
-                            "vod_pic": pic,   # 原图，由 localProxy 处理
-                            "vod_remarks": ""
-                        })
-                self._log(f"通过链接提取到 {len(videos)} 个")
-                return videos
-
-        for article in articles:
-            try:
-                a_tag = article.find("a", href=re.compile(r"/archives/\d+"))
-                if not a_tag:
-                    continue
-                href = a_tag.get("href")
-                if href in seen:
-                    continue
-                seen.add(href)
-
-                title_tag = article.find(["h1", "h2", "h3"])
-                title = title_tag.get_text(strip=True) if title_tag else a_tag.get_text(strip=True)
-                if not title:
-                    title = "未知"
-
-                img_tag = article.find("img")
-                pic = ""
-                if img_tag:
-                    pic = img_tag.get("data-src") or img_tag.get("data-xkrkllgl") or img_tag.get("src") or ""
-                pic = self._fix_url(pic)
-
-                videos.append({
-                    "vod_id": href,
-                    "vod_name": title,
-                    "vod_pic": pic,   # 原图
-                    "vod_remarks": ""
-                })
-            except Exception as e:
-                self._log(f"解析 article 失败: {e}")
-                continue
-
-        self._log(f"通用解析共 {len(videos)} 个")
-        return videos
-
-    # ---------- 搜索 ----------
-    def searchContent(self, key, quick=False, pg="1"):
+            self.log(f"homeContent error: {e}")
+            return {'class': [], 'list': []}
+    
+    def homeVideoContent(self) -> Dict:
+        """获取首页视频内容"""
         try:
-            pg = int(pg) if pg else 1
-            enc_key = urllib.parse.quote(key)
-            url = f"{self.host}/search/{enc_key}/" if pg <= 1 else f"{self.host}/search/{enc_key}/page/{pg}/"
-            html = self._fetch(url)
-            if not html:
-                url = f"{self.host}/?s={enc_key}&page={pg}"
-                html = self._fetch(url)
-            if not html:
-                return {"list": [], "page": pg, "pagecount": 1, "limit": 20, "total": 0}
-            videos = self._parse_articles(html)
-            pagecount = 3 if len(videos) >= 20 else 1
-            return {"list": videos, "page": pg, "pagecount": pagecount, "limit": 20, "total": pagecount * 20}
+            response = self._safe_request(self.host)
+            if not response:
+                return {'list': []}
+            
+            data = self.getpq(response.text)
+            selectors = '#index article a, #archive article a'
+            return {'list': self._get_video_list(data(selectors))}
+            
         except Exception as e:
-            self._log(f"searchContent异常: {e}")
-            return {"list": [], "page": 1, "pagecount": 1, "limit": 20, "total": 0}
-
-    # ---------- 详情 ----------
-    def detailContent(self, ids):
+            self.log(f"homeVideoContent error: {e}")
+            return {'list': []}
+    
+    def categoryContent(self, tid: str, pg: str, filter: Any, extend: str) -> Dict:
+        """获取分类内容"""
         try:
-            if not ids:
-                return {"list": []}
-            url = ids[0]
-            if not url.startswith("http"):
-                url = self._fix_url(url)
-            html = self._fetch(url)
-            if not html:
-                return {"list": []}
-
-            soup = BeautifulSoup(html, "html.parser")
-            title = ""
-            title_tag = soup.find("h1")
-            if title_tag:
-                title = title_tag.get_text(strip=True)
-
-            pic = ""
-            img_tag = soup.find("img")
-            if img_tag:
-                pic = img_tag.get("data-src") or img_tag.get("data-xkrkllgl") or img_tag.get("src") or ""
-            pic = self._fix_url(pic)
-
-            content_div = soup.find("div", class_="entry-content") or soup.find("div", class_="post-content")
-            content_text = ""
-            if content_div:
-                for tag in content_div.find_all(["script", "style", "iframe", "ins"]):
-                    tag.decompose()
-                content_text = content_div.get_text("\n", strip=True)[:300]
-
-            play_urls = self._extract_video_links(soup, url)
-            if play_urls:
-                sources = [label for label, _ in play_urls[:5]]
-                urls = [f"{label}${link}" for label, link in play_urls[:5]]
-                vod_play_from = "#".join(sources)
-                vod_play_url = "#".join(urls)
+            if '@folder' in tid:
+                videos = self._get_folder_content(tid.replace('@folder', ''))
+                pagecount = 1
             else:
-                vod_play_from = "查看原文"
-                vod_play_url = f"原文${url}"
-
+                url = self._build_category_url(tid, pg)
+                response = self._safe_request(url)
+                if not response:
+                    return self._empty_category_result(pg)
+                
+                data = self.getpq(response.text)
+                videos = self._get_video_list(data('#archive article a, #index article a'), tid)
+                pagecount = 99999
+            
             return {
-                "list": [{
-                    "vod_id": url,
-                    "vod_name": title or "未知",
-                    "vod_pic": pic,
-                    "vod_content": content_text,
-                    "vod_play_from": vod_play_from,
-                    "vod_play_url": vod_play_url
-                }]
+                'list': videos,
+                'page': pg,
+                'pagecount': pagecount,
+                'limit': 90,
+                'total': 999999
             }
+            
         except Exception as e:
-            self._log(f"detailContent异常: {e}")
-            return {"list": []}
-
-    def _extract_video_links(self, soup, base_url):
-        links = []
-        seen = set()
-        for video in soup.find_all("video"):
-            src = video.get("src")
-            if src:
-                full = self._fix_url(src)
-                if full and full not in seen:
-                    seen.add(full)
-                    links.append(("Video", full))
-        for iframe in soup.find_all("iframe"):
-            src = iframe.get("src")
-            if src:
-                full = self._fix_url(src)
-                if full and full not in seen:
-                    seen.add(full)
-                    links.append(("iframe", full))
-        content = soup.get_text()
-        for pat in [r'(https?://[^\s"\']+\.m3u8[^\s"\']*)', r'(https?://[^\s"\']+\.(?:mp4|flv|ts)[^\s"\']*)']:
-            for m in re.findall(pat, content):
-                if m not in seen:
-                    seen.add(m)
-                    links.append(("直链", m))
-        return links
-
-    # ---------- 播放 ----------
-    def playerContent(self, flag, id, vipFlags=None):
-        if not id:
-            return {"parse": 1, "url": "", "header": {}}
-        video_exts = [".m3u8", ".mp4", ".flv", ".ts", ".m4a", ".mp3"]
-        if any(ext in id.lower() for ext in video_exts):
-            return {"parse": 0, "url": id, "header": {"User-Agent": "Mozilla/5.0", "Referer": self.host}}
+            self.log(f"categoryContent error: {e}")
+            return self._empty_category_result(pg)
+    
+    def detailContent(self, ids: List[str]) -> Dict:
+        """获取详情内容"""
+        try:
+            url = ids[0] if ids[0].startswith('http') else f"{self.host}{ids[0]}"
+            response = self._safe_request(url)
+            
+            if not response:
+                return {'list': [self._create_error_vod('页面加载失败', url)]}
+            
+            data = self.getpq(response.text)
+            vod = self._parse_detail(data, url)
+            return {'list': [vod]}
+            
+        except Exception as e:
+            self.log(f"detailContent error: {e}")
+            return {'list': [self._create_error_vod('详情页加载失败', ids[0] if ids else '')]}
+    
+    def searchContent(self, key: str, quick: bool, pg: str = "1") -> Dict:
+        """搜索内容"""
+        try:
+            url = f"{self.host}/search/{key}/" if pg == "1" else f"{self.host}/search/{key}/{pg}"
+            response = self._safe_request(url)
+            
+            if not response:
+                return {'list': [], 'page': pg}
+            
+            data = self.getpq(response.text)
+            videos = self._get_video_list(data('#archive article a, #index article a'))
+            return {'list': videos, 'page': pg}
+            
+        except Exception as e:
+            self.log(f"searchContent error: {e}")
+            return {'list': [], 'page': pg}
+    
+    def playerContent(self, flag: str, id: str, vipFlags: Any) -> Dict:
+        """获取播放内容"""
+        url = id
+        parse_type = 0 if self.isVideoFormat(url) else 1
+        
+        if '.m3u8' in url:
+            url = self.proxy(url)
+        
+        self.log(f"播放请求: parse={parse_type}, url={url}")
+        return {'parse': parse_type, 'url': url, 'header': self.headers}
+    
+    def localProxy(self, param: Dict) -> List:
+        """本地代理"""
+        proxy_type = param.get('type')
+        
+        if proxy_type == 'img':
+            return self._proxy_image(param['url'])
+        elif proxy_type == 'm3u8':
+            return self.m3Proxy(param['url'])
         else:
-            if not id.startswith("http"):
-                id = self._fix_url(id)
-            return {"parse": 1, "url": id, "header": {"User-Agent": "Mozilla/5.0", "Referer": self.host}}
-
-    # ---------- 本地代理（关键：图片防盗链） ----------
-    def localProxy(self, param):
-        """
-        TVBox 请求图片时，通过此代理转发，添加 Referer 和 User-Agent
-        param 为图片的完整 URL（由 TVBox 传入）
-        """
+            return self.tsProxy(param['url'])
+    
+    def proxy(self, data: str, type: str = 'm3u8') -> str:
+        """生成代理URL"""
+        if data and self.proxies:
+            return f"{self.getProxyUrl()}&url={self.e64(data)}&type={type}"
+        return data
+    
+    def m3Proxy(self, url: str) -> List:
+        """M3U8代理"""
+        url = self.d64(url)
+        ydata = requests.get(url, headers=self.headers, proxies=self.proxies, allow_redirects=False)
+        data = ydata.text
+        
+        if ydata.headers.get('Location'):
+            url = ydata.headers['Location']
+            data = requests.get(url, headers=self.headers, proxies=self.proxies).text
+        
+        lines = data.strip().split('\n')
+        last_r = url[:url.rfind('/')]
+        parsed_url = urlparse(url)
+        durl = f"{parsed_url.scheme}://{parsed_url.netloc}"
+        
+        processed_lines = self._process_m3u8_lines(lines, last_r, durl)
+        return [200, "application/vnd.apple.mpegur", '\n'.join(processed_lines)]
+    
+    def tsProxy(self, url: str) -> List:
+        """TS代理"""
+        url = self.d64(url)
+        response = requests.get(url, headers=self.headers, proxies=self.proxies, stream=True)
+        return [200, response.headers.get('Content-Type', 'video/MP2T'), response.content]
+    
+    def e64(self, text: str) -> str:
+        """Base64编码"""
         try:
-            if not param:
-                return [404, "text/plain", b"Not Found"]
-
-            # 只处理图片请求（可根据扩展名判断）
-            if not any(param.lower().endswith(ext) for ext in ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.bmp', '.svg']):
-                # 非图片请求直接返回 404
-                return [404, "text/plain", b"Not Found"]
-
-            # 如果 URL 是相对路径，补全
-            if param.startswith("/"):
-                param = self.host + param
-            elif not param.startswith("http"):
-                param = self.host + "/" + param
-
-            # 设置请求头（伪造 Referer 和 User-Agent）
-            headers = {
-                "Referer": self.host,
-                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
-            }
-            resp = self.session.get(param, headers=headers, timeout=10, stream=True)
-            if resp.status_code == 200:
-                content_type = resp.headers.get("Content-Type", "image/jpeg")
-                return [200, content_type, resp.content]
-            else:
-                return [resp.status_code, "text/plain", b"Failed"]
+            return b64encode(text.encode('utf-8')).decode('utf-8')
         except Exception as e:
-            self._log(f"localProxy错误: {e}")
-            return [500, "text/plain", b"Internal Server Error"]
-
-    # ---------- 辅助 ----------
-    def isVideoFormat(self, url):
-        return False
-
-    def manualVideoCheck(self):
-        return False
-
-    def destroy(self):
-        if self.session:
-            self.session.close()
+            self.log(f"Base64编码错误: {e}")
+            return ""
+    
+    def d64(self, encoded_text: str) -> str:
+        """Base64解码"""
+        try:
+            return b64decode(encoded_text).decode('utf-8')
+        except Exception as e:
+            self.log(f"Base64解码错误: {e}")
+            return ""
+    
+    def getpq(self, data: str) -> pq:
+        """获取PyQuery对象"""
+        try:
+            return pq(data)
+        except Exception:
+            return pq(data.encode('utf-8'))
+    
+    # ==================== 私有方法 ====================
+    
+    def _safe_request(self, url: str, timeout: int = 15) -> Optional[requests.Response]:
+        """安全的请求方法"""
+        try:
+            response = requests.get(url, headers=self.headers, proxies=self.proxies, timeout=timeout)
+            if response.status_code == 200:
+                return response
+            return None
+        except Exception as e:
+            self.log(f"请求失败 {url}: {e}")
+            return None
+    
+    def _get_working_host(self) -> str:
+        """获取可用的站点"""
+        for url in self.DYNAMIC_HOSTS:
+            try:
+                response = requests.get(url, headers=self.headers, proxies=self.proxies, timeout=10)
+                if response.status_code == 200:
+                    data = self.getpq(response.text)
+                    if len(data('#index article a')) > 0:
+                        self.log(f"选用可用站点: {url}")
+                        return url
+            except Exception:
+                continue
+        
+        fallback = self.DYNAMIC_HOSTS[0]
+        self.log(f"未检测到可用站点，回退: {fallback}")
+        return fallback
+    
+    def _get_categories(self, data: pq) -> List[Dict]:
+        """获取分类列表"""
+        categories = []
+        
+        for selector in self.CATEGORY_SELECTORS:
+            for item in data(selector).items():
+                link = item('a')
+                href = (link.attr('href') or '').strip()
+                name = (link.text() or '').strip()
+                
+                if href and href != '#' and name:
+                    categories.append({
+                        'type_name': name,
+                        'type_id': href
+                    })
+            
+            if categories:
+                break
+        
+        if not categories:
+            categories = [
+                {'type_name': '首页', 'type_id': '/'},
+                {'type_name': '最新', 'type_id': '/latest/'},
+                {'type_name': '热门', 'type_id': '/hot/'}
+            ]
+        
+        return categories
+    
+    def _get_video_list(self, data: pq, tid: str = '') -> List[Dict]:
+        """获取视频列表"""
+        videos = []
+        is_folder = '/mrdg' in tid
+        
+        for item in data.items():
+            href = item.attr('href')
+            title = item('h2').text()
+            date = item('span[itemprop="datePublished"]').text() or \
+                   item('.post-meta, .entry-meta, time').text()
+            
+            if href and title:
+                videos.append({
+                    'vod_id': f"{href}{'@folder' if is_folder else ''}",
+                    'vod_name': title.replace('\n', ' '),
+                    'vod_pic': self._get_image_url(item('script').text()),
+                    'vod_remarks': date or '',
+                    'vod_tag': 'folder' if is_folder else '',
+                    'style': {"type": "rect", "ratio": 1.33}
+                })
+        
+        return videos
+    
+    def _get_image_url(self, script_text: str) -> str:
+        """获取图片URL"""
+        match = re.search(r"loadBannerDirect\('([^']+)'", script_text)
+        if match:
+            return f"{self.getProxyUrl()}&url={match.group(1)}&type=img"
+        return ''
+    
+    def _get_folder_content(self, folder_id: str) -> List[Dict]:
+        """获取文件夹内容"""
+        url = f"{self.host}{folder_id}"
+        response = requests.get(url, headers=self.headers, proxies=self.proxies)
+        data = self.getpq(response.text)
+        
+        vdata = data('.post-content[itemprop="articleBody"]')
+        remove_selectors = ['.txt-apps', '.line', 'blockquote', '.tags', '.content-tabs']
+        for selector in remove_selectors:
+            vdata.remove(selector)
+        
+        paragraphs = vdata('p')
+        videos = []
+        
+        for i, heading in enumerate(vdata('h2').items()):
+            idx = i * 2
+            videos.append({
+                'vod_id': paragraphs.eq(idx)('a').attr('href'),
+                'vod_name': paragraphs.eq(idx).text(),
+                'vod_pic': f"{self.getProxyUrl()}&url={paragraphs.eq(idx+1)('img').attr('data-xkrkllgl')}&type=img",
+                'vod_remarks': heading.text()
+            })
+        
+        return videos
+    
+    def _parse_detail(self, data: pq, url: str) -> Dict:
+        """解析详情页"""
+        vod = {'vod_play_from': '51吸瓜'}
+        
+        # 解析内容
+        vod['vod_content'] = self._parse_content(data) or '51吸瓜视频'
+        
+        # 解析播放列表
+        play_url = self._parse_play_url(data, url)
+        vod['vod_play_url'] = play_url or f"未找到视频源${url}"
+        
+        return vod
+    
+    def _parse_content(self, data: pq) -> str:
+        """解析内容描述"""
+        try:
+            tags = data('.tags .keywords a')
+            if tags:
+                content_parts = []
+                for tag in tags.items():
+                    title = tag.text()
+                    href = tag.attr('href')
+                    if title and href:
+                        tag_data = json.dumps({'id': href, 'name': title})
+                        content_parts.append(f'[a=cr:{tag_data}/]{title}[/a]')
+                return ' '.join(content_parts)
+        except Exception:
+            pass
+        
+        return data('.post-title').text()
+    
+    def _parse_play_url(self, data: pq, url: str) -> str:
+        """解析播放URL"""
+        try:
+            players = data('.dplayer')
+            if not players:
+                return f"未找到视频源${url}"
+            
+            play_list = []
+            used_names = set()
+            
+            for idx, player in enumerate(players.items(), start=1):
+                config_attr = player.attr('data-config')
+                if not config_attr:
+                    continue
+                
+                try:
+                    config = json.loads(config_attr)
+                    video_url = config.get('video', {}).get('url', '')
+                    if not video_url:
+                        continue
+                    
+                    name = self._get_episode_name(player, idx, used_names)
+                    used_names.add(name)
+                    play_list.append(f"{name}${video_url}")
+                    
+                except Exception:
+                    continue
+            
+            if play_list:
+                self.log(f"拼装播放列表，共{len(play_list)}个")
+                return '#'.join(play_list)
+            
+            return f"未找到视频源${url}"
+            
+        except Exception as e:
+            self.log(f"解析播放URL失败: {e}")
+            return f"视频解析失败${url}"
+    
+    def _get_episode_name(self, player: pq, idx: int, used_names: set) -> str:
+        """获取剧集名称"""
+        try:
+            parent = player.parents().eq(0)
+            for _ in range(3):
+                if not parent:
+                    break
+                heading = parent.find('h2, h3, h4').eq(0).text().strip()
+                if heading:
+                    base_name = heading
+                    break
+                parent = parent.parents().eq(0)
+            else:
+                base_name = f"视频{idx}"
+        except Exception:
+            base_name = f"视频{idx}"
+        
+        # 确保名称唯一
+        name = base_name
+        count = 2
+        while name in used_names:
+            name = f"{base_name} {count}"
+            count += 1
+        
+        return name
+    
+    def _process_m3u8_lines(self, lines: List[str], last_r: str, durl: str) -> List[str]:
+        """处理M3U8行"""
+        processed = []
+        is_key = True
+        
+        for line in lines:
+            # 处理密钥URI
+            if is_key and 'URI' in line:
+                pattern = r'URI="([^"]*)"'
+                match = re.search(pattern, line)
+                if match:
+                    new_line = re.sub(pattern, f'URI="{self.proxy(match.group(1), "mkey")}"', line)
+                    processed.append(new_line)
+                    is_key = False
+                    continue
+            
+            # 处理视频片段
+            if '#EXT' not in line:
+                if 'http' not in line:
+                    domain = last_r if line.count('/') < 2 else durl
+                    line = domain + ('' if line.startswith('/') else '/') + line
+                line = self.proxy(line, line.split('.')[-1].split('?')[0])
+            
+            processed.append(line)
+        
+        return processed
+    
+    def _proxy_image(self, url: str) -> List:
+        """代理图片"""
+        response = requests.get(url, headers=self.headers, proxies=self.proxies, timeout=10)
+        decrypted = self.aesimg(response.content)
+        return [200, response.headers.get('Content-Type'), decrypted]
+    
+    def aesimg(self, data: bytes) -> bytes:
+        """AES解密图片"""
+        cipher = AES.new(self.AES_KEY, AES.MODE_CBC, self.AES_IV)
+        return unpad(cipher.decrypt(data), AES.block_size)
+    
+    def _build_category_url(self, tid: str, pg: str) -> str:
+        """构建分类URL"""
+        if tid.startswith('/'):
+            return f"{self.host}{tid}page/{pg}/" if pg != '1' else f"{self.host}{tid}"
+        return f"{self.host}/{tid}"
+    
+    def _empty_category_result(self, pg: str) -> Dict:
+        """返回空分类结果"""
+        return {
+            'list': [],
+            'page': pg,
+            'pagecount': 1,
+            'limit': 90,
+            'total': 0
+        }
+    
+    def _create_error_vod(self, error_msg: str, url: str) -> Dict:
+        """创建错误视频对象"""
+        return {
+            'vod_play_from': '51吸瓜',
+            'vod_play_url': f"{error_msg}${url}"
+        }
+    
+    def log(self, message: str) -> None:
+        """日志输出"""
+        print(f"[51吸瓜] {message}")
