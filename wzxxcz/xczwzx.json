@@ -428,10 +428,11 @@
             "key": "移动",
             "name": "💡移动影视",
             "type": 3,
-            "api": "csp_YDjisu",
-            "jar": "./jars/xczo.jar",
+            "api": "csp_Yidong4K",
             "searchable": 1,
-            "quickSearch": 1
+            "quickSearch": 1,
+            "filterable": 1,
+            "timeout": 60
         },
         {
             "key": "行动",
@@ -460,13 +461,6 @@
             }
         },
         {
-            "key": "修罗",
-            "name": "🍊修罗磁力",
-            "api": "csp_Xlys",
-            "type": 3,
-            "ext": "https://xl02.com.de"
-        },
-        {
             "key": "七味",
             "name": "🍢七味磁力",
             "type": 3,
@@ -474,19 +468,7 @@
             "searchable": 1,
             "quickSearch": 1,
             "filterable": 1,
-            "ext": {
-                "url": "https://www.qwnull.com,https://www.qwmkv.com,https://www.qwfilm.com,https://www.qnmp4.com,https://www.qnnull.com,https://www.qnhot.com,https://www.qncool.com"
-            }
-        },
-        {
-            "key": "80S",
-            "name": "🍊80S磁力",
-            "type": 3,
-            "api": "csp_BLSGod",
-            "playerType": 1,
-            "searchable": 1,
-            "quickSearch": 1,
-            "filterable": 1
+            "ext": "https://www.qwshow.com,https://www.qwmkv.com,https://www.qwfilm.com,https://www.qwfun.com,https://www.qnnull.com,https://www.qnnull.com"
         },
         {
             "key": "New6v",
@@ -526,15 +508,6 @@
             "quickSearch": 1,
             "filterable": 1,
             "ext": "./XYQHiker/电影港.json"
-        },
-        {
-            "key": "电影天堂",
-            "name": "🍊电影天堂磁力",
-            "type": 3,
-            "api": "csp_DyGod",
-            "searchable": 1,
-            "quickSearch": 1,
-            "filterable": 1
         },
         {
             "key": "py_xiongdi",
@@ -940,7 +913,7 @@
             "name": "🏅金牌影视",
             "type": 3,
             "api": "csp_Jpys",
-            "ext": "https://m.hkybqufgh.com,https://m.sizhengxt.com,https://m.9zhoukj.com,https://m.sizhengxt.com,https://m.jiabaide.cn"
+            "ext": "https://y2s52n7.com,https://m.hkybqufgh.com,https://m.sizhengxt.com,https://m.9zhoukj.com,https://m.sizhengxt.com,https://m.jiabaide.cn"
         },
         {
             "key": "柠檬",
@@ -1916,6 +1889,18 @@
                 "排序值": "time&hits&score"
             }
         },
+		{
+            "key": "山楂影视",
+            "name": "🍊山楂影视",
+            "type": 3,
+            "api": "csp_PianKu8"
+        },
+        {
+            "key": "飞娱影视",
+            "name": "🍊飞娱影视",
+            "type": 3,
+            "api": "csp_Feiyu"
+        },
         {
             "key": "独播影视",
             "name": "🍊独播影视",
@@ -1930,7 +1915,7 @@
             "searchable": 1,
             "quickSearch": 1,
             "filterable": 1,
-            "ext": "https://www.czzy89.com"
+            "ext": "https://cz01.vip"
         },
         {
             "key": "扁豆影院",
@@ -10929,6 +10914,13 @@
             "type": 3,
             "api": "csp_Wwys",
             "ext": "https://vip.wwgz.cn:5200"
+        },
+		{
+            "key": "枫叶影视",
+            "name": "🍁枫叶影视",
+            "type": 3,
+            "api": "csp_FengYe",
+            "ext": "https://www.vip1949.com/"
         },
         {
             "key": "1905",
@@ -35187,14 +35179,19 @@
                 "排序值": "time&hits&score"
             }
         },
-        {
-            "key": "魔都资源",
-            "name": "🤣魔都动漫",
-            "type": 1,
-            "api": "https://caiji.moduapi.cc/api.php/provide/vod/?ac=list",
+		{
+            "key": "喵呜动漫",
+            "name": "🐈喵呜动漫",
+            "type": 3,
             "searchable": 1,
-            "quickSearch": 1,
-            "filterable": 1
+            "api": "csp_MiaoWu"
+        },
+        {
+            "key": "魔都动漫",
+            "name": "🤣魔都动漫",
+            "type": 3,
+            "searchable": 1,
+            "api": "csp_MoDu"
         },
         {
             "key": "哆啦新番社",
@@ -35213,6 +35210,22 @@
             "api": "./js/drpy2.min.js",
             "ext": "./js/Anime1.js"
         },
+		{
+            "key": "双星99",
+            "name": "🤣双星动漫",
+            "type": 3,
+            "api": "csp_App99",
+            "ext": {
+                "host": "http://175.178.65.250:19987/app/bn",
+                "LoginPath": "/app/log",
+                "appkey": "f66f65db127e48449f073c2c6eb0f993",
+                "versionName": "6.4.5",
+                "name": "双子星动漫",
+                "package": "com.yingfu.mobile.android.pgsp",
+                "buildNumber": "2003",
+                "buildSignature": "054FA8DDA4319C6B6A9B954CA5777541C993F00B1B0BD4394F7EDE48184C4594"
+            }
+        },
         {
             "key": "漫国动漫",
             "name": "🤣漫国动漫",
@@ -35220,7 +35233,7 @@
             "searchable": 1,
             "api": "csp_AppSy",
             "ext": {
-                "site": "https://dm-1255775577.cos.ap-guangzhou.myqcloud.com/dmg/api.txt",
+                "url": "http://114.66.27.208:806",
                 "siteKey": "rectangleadsadxa",
                 "listKey": "aassddwwxxllsx1x",
                 "parsesKey": "aassddwwxxllsx1x"
@@ -35236,18 +35249,6 @@
                 "url": "https://www.cyfz.vip",
                 "dataKey": "e72cdfd629e8895d",
                 "dataIv": "e72cdfd629e8895d"
-            }
-        },
-        {
-            "key": "番薯动漫",
-            "name": "🥔番薯动漫",
-            "type": 3,
-            "searchable": 1,
-            "api": "csp_AppGet",
-            "ext": {
-                "url": "https://new.app.bytegooty.com",
-                "dataKey": "N4yj7l7xKxHF4*gz",
-                "dataIv": "N4yj7l7xKxHF4*gz"
             }
         },
         {
@@ -35275,30 +35276,11 @@
             }
         },
         {
-            "key": "丫丫动漫",
-            "name": "🤣丫丫动漫",
-            "type": 3,
-            "searchable": 1,
-            "api": "csp_AppGet",
-            "ext": {
-                "url": "http://tv.yy-fun.cc",
-                "dataKey": "qkxnwkfjwpcnwycl",
-                "dataIv": "qkxnwkfjwpcnwycl"
-            }
-        },
-        {
             "key": "巴士动漫",
             "name": "🚐巴士动漫",
             "type": 3,
             "api": "csp_XYQHiker",
             "ext": "./XYQHiker/巴士动漫.json"
-        },
-        {
-            "key": "爱动漫",
-            "name": "🤣爱动漫动漫",
-            "type": 3,
-            "api": "./js/drpy2.min.js",
-            "ext": "./js/爱动漫.js"
         },
         {
             "key": "路漫漫",
@@ -35326,59 +35308,51 @@
             "type": 3,
             "api": "./js/聚合短剧.js"
         },
-        {
+		{
             "key": "围观短剧",
             "name": "🍊围观短剧",
             "type": 3,
             "api": "csp_WeiguanDJ",
-            "searchable": 1,
-            "changeable": 1,
-            "quickSearch": 1,
-            "filterable": 1,
             "genre": "shortdrama"
         },
-        {
-            "key": "甜圈短剧",
-            "name": "🍊甜圈短剧",
+		{
+            "key": "好看短剧",
+            "name": "🍊好看短剧",
             "type": 3,
-            "api": "csp_TianquanDJ",
-            "searchable": 1,
-            "changeable": 1,
-            "quickSearch": 1,
-            "filterable": 1,
+            "api": "csp_HaokanDJ",
             "genre": "shortdrama"
         },
-        {
+		{
             "key": "星芽短剧",
             "name": "🌟星芽短剧",
             "type": 3,
-            "api": "./py/星芽短剧.py",
-            "searchable": 1,
-            "changeable": 1,
-            "quickSearch": 1,
-            "filterable": 1,
+            "api": "csp_XingyaDJ",
             "genre": "shortdrama"
         },
-        {
+		{
+            "key": "果果短剧",
+            "name": "🍎果果短剧",
+            "type": 3,
+            "api": "csp_XBPQ",
+            "ext": {
+                "请求头": "User-Agent$MOBILE_UA",
+                "编码": "UTF-8",
+                "分类": "重生$1#穿越$2#爽剧$3#言情$4#都市$5#古装$6#悬疑$7#剧情$8",
+                "分类url": "https://www.mochadj.com/i/{cateId}-{catePg}.html"
+            }
+        },
+		{
+            "key": "七猫短剧",
+            "name": "🐈七猫短剧",
+            "type": 3,
+            "api": "csp_QimaoDJ",
+            "genre": "shortdrama"
+        },
+		{
             "key": "河马短剧",
             "name": "🦛河马短剧",
             "type": 3,
-            "api": "./py/河马短剧.py",
-            "searchable": 1,
-            "changeable": 1,
-            "quickSearch": 1,
-            "filterable": 1,
-            "playerType": 2
-        },
-        {
-            "key": "剧王短剧",
-            "name": "🍊剧王短剧",
-            "type": 3,
-            "api": "./py/剧王短剧.py",
-            "searchable": 1,
-            "changeable": 1,
-            "quickSearch": 1,
-            "filterable": 1,
+            "api": "csp_HemaDJ",
             "genre": "shortdrama"
         },
         {
@@ -35473,26 +35447,14 @@
             "key": "养生堂",
             "name": "🐦‍🔥养生知识",
             "type": 3,
-            "api": "csp_XBPQ",
-            "ext": "./XBPQ/养生堂.json",
+            "api": "csp_YST",
+            "searchable": 0,
+            "quickSearch": 0,
+            "changeable": 0,
             "style": {
                 "type": "rect",
                 "ratio": 1.597
             }
-        },
-        {
-            "key": "dr_兔小贝",
-            "name": "📚儿童启蒙",
-            "type": 3,
-            "api": "https://git.yylx.win/https://github.com/wzxxcz/EXT/raw/refs/heads/main/drpy2.min.js",
-            "ext": "https://git.yylx.win/https://github.com/wzxxcz/EXT/raw/refs/heads/main/%E5%85%94%E5%B0%8F%E8%B4%9D.js",
-            "style": {
-                "type": "rect",
-                "ratio": 1.597
-            },
-            "searchable": 0,
-            "quickSearch": 0,
-            "changeable": 0
         },
         {
             "key": "88看球",
@@ -35518,6 +35480,15 @@
             "name": "⚽瓜子体育",
             "type": 3,
             "api": "csp_GuaziTY",
+            "style": {
+                "type": "list"
+            }
+        },
+		{
+            "key": "咖啡体育",
+            "name": "⚽咖啡体育",
+            "type": 3,
+            "api": "csp_KafeiTY",
             "style": {
                 "type": "list"
             }
@@ -35556,7 +35527,7 @@
             }
         },
         {
-            "key": "哔哩哔哩演唱会",
+            "key": "哔哩哔哩音乐",
             "name": "🍊哔哩音乐",
             "type": 3,
             "api": "csp_Bili",
@@ -35564,7 +35535,7 @@
             "quickSearch": 0,
             "filterable": 0,
             "ext": {
-                "json": "./json/哔哩哔哩演唱会.json",
+                "n": "哔哩音乐",
                 "cookie": "http://127.0.0.1:9978/file/TVBox/bili_cookie.txt"
             },
             "style": {
@@ -35581,7 +35552,7 @@
             "quickSearch": 0,
             "filterable": 0,
             "ext": {
-                "json": "./json/哔哩哔哩听书.json",
+                "n": "哔哩听书",
                 "cookie": "http://127.0.0.1:9978/file/TVBox/bili_cookie.txt"
             },
             "style": {
@@ -35598,7 +35569,7 @@
             "quickSearch": 0,
             "filterable": 0,
             "ext": {
-                "json": "./json/哔哩哔哩相声.json",
+                "n": "哔哩相声",
                 "cookie": "http://127.0.0.1:9978/file/TVBox/bili_cookie.txt"
             },
             "style": {
@@ -35615,7 +35586,7 @@
             "quickSearch": 0,
             "filterable": 0,
             "ext": {
-                "json": "./json/哔哩哔哩小品.json",
+                "n": "哔哩小品",
                 "cookie": "http://127.0.0.1:9978/file/TVBox/bili_cookie.txt"
             },
             "style": {
@@ -35632,9 +35603,29 @@
             "quickSearch": 0,
             "filterable": 0,
             "ext": {
-                "json": "./json/哔哩哔哩戏曲.json",
+                "n": "哔哩戏曲",
                 "cookie": "http://127.0.0.1:9978/file/TVBox/bili_cookie.txt"
             },
+            "style": {
+                "type": "rect",
+                "ratio": 1.597
+            }
+        },
+		{
+            "key": "兔小贝",
+            "name": "🐰兔小贝儿童",
+            "type": 3,
+            "api": "csp_TuXiaoBei",
+            "style": {
+                "type": "rect",
+                "ratio": 1.597
+            }
+        },
+		{
+            "key": "贝乐虎",
+            "name": "🐅贝乐虎儿童",
+            "type": 3,
+            "api": "csp_BeiLeHu",
             "style": {
                 "type": "rect",
                 "ratio": 1.597
