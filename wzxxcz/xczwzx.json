@@ -4,6 +4,18 @@
     "logo": "./logo.php",
     "lives": [
         {
+            "name": "酒店",
+            "type": 0,
+            "ua": "okhttp/5.3.2",
+            "url": "https://gh-proxy.org/https://raw.githubusercontent.com/adminouyang/231006/refs/heads/main/py/Hotel/hotel.txt"
+        },
+		{
+            "name": "优质",
+            "type": 0,
+            "ua": "okhttp/5.3.2",
+            "url": "https://gh-proxy.org/https://raw.githubusercontent.com/adminouyang/231006/refs/heads/main/py/%E4%BC%98%E8%B4%A8%E6%BA%90/output/ipv4/result.txt"
+        },
+		{
             "name": "MIT",
             "type": 0,
             "playerType": 2,
@@ -54,12 +66,6 @@
             "url": "https://gh-proxy.org/https://raw.githubusercontent.com/qingtingjjjjjjj/iptv-auto-update/main/my.txt"
         },
         {
-            "name": "潇宇",
-            "type": 0,
-            "ua": "okhttp/5.3.2",
-            "url": "https://ds65.tv1288.xyz"
-        },
-        {
             "name": "AI自动",
             "type": 0,
             "ua": "okhttp/5.3.2",
@@ -78,12 +84,6 @@
             "url": "http://www.52top.com.cn:678/downloads/migu.txt"
         },
         {
-            "name": "DS9",
-            "type": 0,
-            "ua": "okhttp/5.3.2",
-            "url": "https://d.kstore.dev/download/12441/ds9.txt"
-        },
-        {
             "name": "易发",
             "type": 0,
             "ua": "okhttp/5.3.2",
@@ -94,12 +94,6 @@
             "type": 0,
             "ua": "okhttp/5.3.2",
             "url": "https://gh-proxy.org/https://raw.githubusercontent.com/Supprise0901/TVBox_live/main/live.txt"
-        },
-        {
-            "name": "龙壹",
-            "type": 0,
-            "ua": "okhttp/5.3.2",
-            "url": "http://210.245.166.84:1299/live/live.txt"
         },
         {
             "name": "Guovin",
@@ -160,12 +154,6 @@
             "type": 0,
             "ua": "okhttp/5.3.2",
             "url": "http://tv123.vvvv.ee/tv.m3u"
-        },
-        {
-            "name": "74源",
-            "type": 0,
-            "ua": "okhttp/5.3.2",
-            "url": "https://im5k.fun/vip.m3u"
         },
         {
             "name": "迪基",
@@ -356,6 +344,12 @@
             "style": {
                 "type": "list"
             }
+        },
+		{
+            "key": "kwms",
+            "name": "🎵酷我音乐",
+            "type": 3,
+            "api": "./py/酷我音乐.py"
         },
         {
             "key": "呦呦DJ",
@@ -923,6 +917,90 @@
             "api": "./py/皮皮虾.py",
 			"ext": "http://43.248.117.123:4680"	
         },
+		{
+            "key": "kkvm",
+            "name": "🍹可可影视",
+            "type": 3,
+            "api": "./py/可可影视.py"
+        },
+		{
+            "key": "豆花影视",
+            "name": "🥛豆花影视",
+            "type": 3,
+            "api": "./py/豆花影视.py"
+        },
+		{
+            "key": "808yr",
+            "name": "🎞️808影院",
+            "type": 3,
+            "api": "./py/808影院.py"
+        },
+		{
+            "key": "gqc",
+            "name": "🌃共青春影院",
+            "type": 3,
+            "api": "./py/共青春影院.py"
+        },
+		{
+            "key": "蝶卡影视",
+            "name": "🦋蝶卡影视",
+            "type": 3,
+            "api": "./py/蝶卡影视.py"
+        },
+		{
+            "key": "ww",
+            "name": "🐸哇哇影视",
+            "type": 3,
+            "api": "./py/哇哇APP.py"
+        },
+		{
+            "key": "58vy",
+            "name": "💵58影视",
+            "type": 3,
+            "api": "./py/58影视.py"
+        },
+		{
+            "key": "jgvy",
+            "name": "🍊追光影视",
+            "type": 3,
+            "api": "./py/追光影视.py"
+        },
+		{
+            "key": "qmvm",
+            "name": "🐈七猫影视",
+            "type": 3,
+            "api": "./py/七猫影视.py"
+        },
+		{
+            "key": "hstv",
+            "name": "💶华数影视",
+            "type": 3,
+            "api": "./py/华数TV.py"
+        },
+		{
+            "key": "dttv",
+            "name": "🎂蛋挞影视",
+            "type": 3,
+            "api": "./py/蛋挞TV.py"
+        },
+		{
+            "key": "wstv",
+            "name": "🍵威视影视",
+            "type": 3,
+            "api": "./py/威视TV.py"
+        },
+		{
+            "key": "dsys",
+            "name": "🐍毒舌影视",
+            "type": 3,
+            "api": "./py/毒舌影视.py"
+        },
+		{
+            "key": "8tdy",
+            "name": "🌤️八天电影",
+            "type": 3,
+            "api": "./py/八天电影.py"
+        },
         {
             "key": "金牌",
             "name": "🏅金牌",
@@ -1065,6 +1143,21 @@
                 "package": "com.qingtangxiaozhuan.xyz",
                 "buildNumber": "2002",
                 "buildSignature": "054FA8DDA4319C6B6A9B954CA5777541C993F00B1B0BD4394F7EDE48184C4594"
+            }
+        },
+		{
+            "key": "半日99",
+            "name": "🌥️半日影视",
+            "type": 3,
+            "api": "csp_App99",
+            "ext": {
+                "host": "http://103.217.190.91:19987/app/bn",
+                "appkey": "24d625a8a29b4700a1a294c6f3b29e2c",
+                "versionName": "3.5.8",
+                "name": "半日闲",
+                "package": "com.yf.lelian",
+                "buildNumber": "2001",
+                "buildSignature": "A40DA80A59D170CAA950CF15C18C454D47A39B26989D8B640ECD745BA71BF5DC"
             }
         },
         {
