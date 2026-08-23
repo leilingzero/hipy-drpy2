@@ -1350,12 +1350,6 @@
             "api": "./py/追光影视.py"
         },
 		{
-            "key": "qmvm",
-            "name": "🐈七猫影视",
-            "type": 3,
-            "api": "./py/七猫影视.py"
-        },
-		{
             "key": "hstv",
             "name": "💶华数影视",
             "type": 3,
@@ -1368,12 +1362,6 @@
             "api": "./py/威视TV.py"
         },
 		{
-            "key": "dsys",
-            "name": "🐍毒舌影视",
-            "type": 3,
-            "api": "./py/毒舌影视.py"
-        },
-		{
             "key": "8tdy",
             "name": "🌤️八天电影",
             "type": 3,
@@ -1384,6 +1372,36 @@
             "name": "🐝采集聚合",
             "type": 3,
             "api": "./py/采集聚合.py"
+        },
+		{
+            "key": "影视大全2",
+            "name": "🍊影视大全2",
+            "type": 3,
+            "api": "./py/影视大全🍀TG @hshsjk9.py"
+        },
+		{
+            "key": "一起影视",
+            "name": "🍊一起影视",
+            "type": 3,
+            "api": "./py/一起影视🍀TG @hshsjk9.py"
+        },
+		{
+            "key": "看戏影视1",
+            "name": "🍊看戏影视1",
+            "type": 3,
+            "api": "./py/看戏影视🍀TG @hshsjk9.py"
+        },
+		{
+            "key": "VIP兔影视",
+            "name": "🐇VIP兔影视",
+            "type": 3,
+            "api": "./py/VIP兔🍀TG @hshsjk9.py"
+        },
+		{
+            "key": "FoFo影院",
+            "name": "🌱FoFo影院",
+            "type": 3,
+            "api": "./py/FoFo影院🍀TG @hshsjk9.py"
         },
 		{
             "key": "飞快TV1",
@@ -1420,6 +1438,12 @@
             "name": "🐳泡泡影院1",
             "type": 3,
             "api": "./py/泡泡影院🍀TG @hshsjk9.py"
+        },
+		{
+            "key": "宅男影视",
+            "name": "🍊宅男影视",
+            "type": 3,
+            "api": "./py/宅男影视🍀TG @hshsjk9.py"
         },
 		{
             "key": "看剧AI",
@@ -1554,15 +1578,6 @@
             "playerType": 2,
             "jar": "https://ncstatic.clewm.net/rsrc/2025/0915/15/e210975c2c794cbc8bb1839b54ac213e.png;md5;939FFBC2941A28CA533F2653FA4B449E",
             "ext": "7lj763gg402i7942412h849jg1558j9jl8g19213il86316k465719lik158491h179312hk935886ig2l05g9"
-        },
-		{
-            "key": "一起影视",
-            "name": "🍊一起影视",
-            "type": 3,
-            "api": "csp_AppYQK",
-            "searchable": 1,
-            "quickSearch": 1,
-            "filterable": 0
         },
 		{
             "key": "剧圈99",
