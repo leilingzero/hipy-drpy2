@@ -16,6 +16,48 @@
             "url": "https://gh-proxy.org/https://raw.githubusercontent.com/adminouyang/231006/refs/heads/main/py/%E4%BC%98%E8%B4%A8%E6%BA%90/output/ipv4/result.txt"
         },
 		{
+            "name": "裤佬IPTV直播",
+            "type": 0,
+            "ua": "okhttp/5.3.2",
+            "url": "https://seep.eu.org/https://live.445569.xyz/live.m3u"
+        },
+		{
+            "name": "裤佬体育直播",
+            "type": 0,
+            "ua": "okhttp/5.3.2",
+            "url": "https://jsnzkpg.de5.net/all.m3u"
+        },
+		{
+            "name": "裤佬松果赛事",
+            "type": 0,
+            "ua": "okhttp/5.3.2",
+            "url": "https://stymei.pages.dev/live.m3u"
+        },
+		{
+            "name": "涛涛TV直播",
+            "type": 0,
+            "ua": "okhttp/5.3.2",
+            "url": "https://445569.pages.dev/https://raw.githubusercontent.com/taoBox2620/taoBox2620/refs/heads/main/logo1.png"
+        },
+		{
+            "name": "华视TV直播",
+            "type": 0,
+            "ua": "okhttp/5.3.2",
+            "url": "https://445569.pages.dev/https://raw.githubusercontent.com/swhtv/111/refs/heads/main/华视box华视大全swtv"
+        },
+		{
+            "name": "台湾4GTV直播",
+            "type": 0,
+            "ua": "okhttp/5.3.2",
+            "url": "http://4gtv.cnlive.club/4gtv.m3u"
+        },
+		{
+            "name": "全球TV直播",
+            "type": 0,
+            "ua": "okhttp/5.3.2",
+            "url": "https://seep.eu.org/iptv-org.github.io/iptv/index.m3u"
+        },
+		{
             "name": "内地港台",
             "type": 0,
             "ua": "okhttp/5.3.2",
@@ -1115,6 +1157,46 @@
             "api": "csp_Jpys",
             "ext": "https://y2s52n7.com,https://m.hkybqufgh.com,https://m.sizhengxt.com,https://m.9zhoukj.com,https://m.sizhengxt.com,https://m.jiabaide.cn"
         },
+		{
+            "key": "6080影视",
+            "name": "💡6080影视",
+            "type": 3,
+            "api": "./py/6080影视.py"
+        },
+		{
+            "key": "葫芦影视",
+            "name": "💡葫芦影视",
+            "type": 3,
+            "api": "./js/葫芦影视.js",
+            "ext": {
+                "host": "./JS/maccos_config.txt",
+                "key": "8R33VQSxzmCaHpEX",
+                "init": "V122",
+                "api": 2,
+                "ua": "okhttp/3.10.0"
+            }
+        },
+		{
+            "key": "多瑙影视",
+            "name": "🐿️多瑙影视",
+            "type": 3,
+            "api": "./py/多瑙影视.py"
+        },
+		{
+            "key": "泥巴影视",
+            "name": "💡泥巴影视",
+            "type": 3,
+            "api": "./py/泥巴影视.py"
+        },
+		{
+            "key": "爬虫影视",
+            "name": "🐛爬虫影视",
+            "type": 1,
+            "api": "https://dy.7772888.xyz/api.php/tvbox",
+            "searchable": 1,
+            "quickSearch": 1,
+            "filterable": 1
+        },
         {
             "key": "柠檬",
             "name": "🍋柠檬影院",
@@ -1169,23 +1251,11 @@
             "type": 3,
             "api": "./js/VmOlRys8_vip.js"
         },
-        {
-            "key": "巧技二",
-            "name": "🔍搜搜影视",
+		{
+            "key": "猎手",
+            "name": "💡猎手影视",
             "type": 3,
-            "api": "csp_qiao2",
-            "playerType": 2,
-            "jar": "https://ncstatic.clewm.net/rsrc/2025/0915/15/e210975c2c794cbc8bb1839b54ac213e.png;md5;939FFBC2941A28CA533F2653FA4B449E",
-            "ext": "7lj763gg402i7942412h849jg1558j9jl8g19213il86316k465719lik158491h179312h4934183ig2l05g9"
-        },
-        {
-            "key": "巧技五",
-            "name": "🔍艘艘影视",
-            "type": 3,
-            "api": "csp_qiao2",
-            "playerType": 2,
-            "jar": "https://ncstatic.clewm.net/rsrc/2025/0915/15/e210975c2c794cbc8bb1839b54ac213e.png;md5;939FFBC2941A28CA533F2653FA4B449E",
-            "ext": "7lj763gg402i7942412h849jg1558j9jl8g19213il86316k465719lik158491h179312hk935886ig2l05g9"
+            "api": "./py/猎手.py"
         },
 		{
             "key": "剧圈99",
@@ -1319,19 +1389,6 @@
             "type": 3,
             "api": "csp_Hxq",
             "ext": "http://www.小不点.com/api/2026/fishhxq.php"
-        },
-        {
-            "key": "七壹",
-            "name": "💶七壹影视",
-            "type": 3,
-            "api": "csp_AppGet",
-            "searchable": 1,
-            "changeable": 1,
-            "ext": {
-                "url": "https://qiyiys.cc",
-                "dataKey": "45452893929B40D9",
-                "dataIv": "45452893929B40D9"
-            }
         },
         {
             "key": "乌云影视",
@@ -1642,8 +1699,19 @@
             "quickSearch": 1,
             "filterable": 1,
             "ext": {
-                "site": "https://www.hkybqufgh.com,https://www.sizhengxt.com,https://0996zp.com,https://9zhoukj.com/,https://www.sizhengxt.com,https://www.tjrongze.com,https://www.jiabaide.cn,https://cqzuoer.com"
+                "site": "https://www.hkybqufgh.com,https://www.sizhengxt.com,https://www.tjrongze.com,https://www.jiabaide.cn"
             }
+        },
+		{
+            "key": "cat_剧迷网",
+            "name": "🥇剧迷影视",
+            "type": 3,
+            "api": "./js/高清剧迷.js",
+            "style": {
+                "type": "rect",
+                "ratio": 1
+            },
+            "changeable": 1
         },
         {
             "key": "片喵",
@@ -10909,6 +10977,32 @@
             "type": 3,
             "api": "csp_XBPQ",
             "ext": "./XBPQ/面包影视.json"
+        },
+		{
+            "key": "VIP",
+            "name": "🧿VIP影视",
+            "type": 3,
+            "api": "csp_XBPQ",
+            "jar": "https://ncstatic-file.clewm.net/rsrc/2026/0307/11/98d51d4d95c5cf1b67e74af45cc4445f.jpg;md5;4d860d06ec233dbcb891b76055f099d5",
+            "ext": {
+                "副标题": "小橙子专属",
+                "请求头": "User-Agent$MOBILE_UA",
+                "编码": "UTF-8",
+                "分类url": "https://www.vipdy.vip/;;!H"
+            }
+        },
+		{
+            "key": "先生",
+            "name": "🧿先生影视",
+            "type": 3,
+            "api": "csp_XBPQ",
+            "jar": "https://ncstatic-file.clewm.net/rsrc/2026/0307/11/98d51d4d95c5cf1b67e74af45cc4445f.jpg;md5;4d860d06ec233dbcb891b76055f099d5",
+            "ext": {
+                "副标题": "小橙子专属",
+                "请求头": "User-Agent$MOBILE_UA",
+                "编码": "UTF-8",
+                "分类url": "https://silidm.com/;;!H"
+            }
         },
         {
             "key": "雪糕TV",
